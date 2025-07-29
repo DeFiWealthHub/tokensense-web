@@ -13,7 +13,7 @@ function PortfolioDashboard() {
 
   if (!portfolioData || !Array.isArray(portfolioData) || portfolioData.length === 0) {
     return (
-      <div className="mx-4 md:mx-8 p-4">
+      <div className="ml-8 md:ml-12 mr-4 md:mr-8 p-4">
         <h1 className="text-2xl font-bold mb-4">Portfolio Dashboard</h1>
         <p className="text-red-600">Error: Portfolio data is not available.</p>
       </div>
@@ -22,12 +22,16 @@ function PortfolioDashboard() {
 
   const handleInvestmentChange = (e) => {
     const value = e.target.value;
-    if (value < 25) {
+    const numValue = Number(value);
+    if (numValue < 25) {
       setError('Investment amount must be at least $25');
+      setInvestmentAmount('');
+    } else if (numValue > 10000000) {
+      setError('Investment amount cannot exceed $10M');
       setInvestmentAmount('');
     } else {
       setError('');
-      setInvestmentAmount(Number(value));
+      setInvestmentAmount(numValue);
     }
   };
 
@@ -102,7 +106,7 @@ function PortfolioDashboard() {
   };
 
   return (
-    <div className="mx-4 md:mx-8 p-4 max-w-full overflow-x-auto">
+    <div className="ml-8 md:ml-12 mr-4 md:mr-8 p-4 max-w-full overflow-x-auto">
       <h1 className="text-2xl font-bold mb-4">DeFi TokenSense Portfolio Dashboard</h1>
 
       {/* Investment Amount Input */}
@@ -119,6 +123,7 @@ function PortfolioDashboard() {
               value={investmentAmount}
               onChange={handleInvestmentChange}
               min="25"
+              max="10000000"
               className="border rounded p-2 w-32 text-sm"
               placeholder="Enter amount"
             />
