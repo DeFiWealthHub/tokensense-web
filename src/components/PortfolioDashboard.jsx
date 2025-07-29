@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Tooltip } from 'chart.js';
 import portfolioData from '../data/portfolioData';
@@ -5,16 +6,30 @@ import portfolioData from '../data/portfolioData';
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip);
 
 function PortfolioDashboard() {
+  const [investmentAmount, setInvestmentAmount] = useState(1000); // Default to $1000
+  const [error, setError] = useState('');
+
   console.log('portfolioData:', portfolioData);
 
   if (!portfolioData || !Array.isArray(portfolioData) || portfolioData.length === 0) {
     return (
-      <div className="p-4">
+      <div className="mx-4 md:mx-8 p-4">
         <h1 className="text-2xl font-bold mb-4">Portfolio Dashboard</h1>
         <p className="text-red-600">Error: Portfolio data is not available.</p>
       </div>
     );
   }
+
+  const handleInvestmentChange = (e) => {
+    const value = e.target.value;
+    if (value < 25) {
+      setError('Investment amount must be at least $25');
+      setInvestmentAmount('');
+    } else {
+      setError('');
+      setInvestmentAmount(Number(value));
+    }
+  };
 
   const chartData = {
     labels: portfolioData.map(item => item.token),
@@ -87,8 +102,30 @@ function PortfolioDashboard() {
   };
 
   return (
-    <div className="p-4 max-w-full overflow-x-auto">
+    <div className="mx-4 md:mx-8 p-4 max-w-full overflow-x-auto">
       <h1 className="text-2xl font-bold mb-4">DeFi TokenSense Portfolio Dashboard</h1>
+
+      {/* Investment Amount Input */}
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">Investment Amount</h2>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div className="flex items-center gap-2">
+            <label htmlFor="investmentAmount" className="text-sm font-medium">
+              Investment Amount ($):
+            </label>
+            <input
+              id="investmentAmount"
+              type="number"
+              value={investmentAmount}
+              onChange={handleInvestmentChange}
+              min="25"
+              className="border rounded p-2 w-32 text-sm"
+              placeholder="Enter amount"
+            />
+          </div>
+          {error && <p className="text-red-600 text-sm">{error}</p>}
+        </div>
+      </section>
 
       {/* Portfolio Overview */}
       <section className="mb-6">
@@ -174,7 +211,6 @@ function PortfolioDashboard() {
                 <td className="p-2 border">3</td>
                 <td className="p-2 border">6</td>
               </tr>
-              {/* Add more criteria rows as needed */}
             </tbody>
           </table>
         </div>
@@ -193,6 +229,7 @@ function PortfolioDashboard() {
                 <th className="p-2 border">Sector</th>
                 <th className="p-2 border">Token</th>
                 <th className="p-2 border">Allocation (%)</th>
+                <th className="p-2 border">Investment ($)</th>
                 <th className="p-2 border">Phase</th>
                 <th className="p-2 border">Risk Level</th>
                 <th className="p-2 border">Composite Score</th>
@@ -207,6 +244,9 @@ function PortfolioDashboard() {
                   <td className="p-2 border">{item.sector}</td>
                   <td className="p-2 border">{item.token}</td>
                   <td className="p-2 border">{item.allocation}%</td>
+                  <td className="p-2 border">
+                    {investmentAmount ? `$${((item.allocation * investmentAmount) / 100).toFixed(2)}` : 'N/A'}
+                  </td>
                   <td className="p-2 border">{item.phase}</td>
                   <td className="p-2 border">{item.riskLevel}</td>
                   <td className="p-2 border">{item.compositeScore.toFixed(2)}</td>
