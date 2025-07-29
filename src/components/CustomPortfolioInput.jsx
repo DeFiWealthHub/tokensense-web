@@ -1,109 +1,68 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import portfolioData from '../data/portfolioData';
 
-const mockTokens = [
-  { value: 'BTC', label: 'BTC', sector: 'Blue-Chip/Core' },
-  { value: 'ZIG', label: 'ZIG', sector: 'Real-World Asset Tokenization' },
-  { value: 'ONDO', label: 'ONDO', sector: 'Real-World Asset Tokenization' },
-  { value: 'HYPE', label: 'HYPE', sector: 'Meme Coins' },
-  { value: 'GRAY', label: 'GRAY', sector: 'Meme Coins' },
-];
+function CustomPortfolioInput() {
+  const [selectedTokens, setSelectedTokens] = useState([]);
 
-const CustomPortfolioInput = () => {
-  const [assets, setAssets] = useState([]);
-  const [totalAllocation, setTotalAllocation] = useState(0);
-  const navigate = useNavigate();
+  const options = portfolioData.map(item => ({
+    value: item.token,
+    label: `${item.token} (${item.sector})`,
+  }));
 
-  const handleAddAsset = (selected, allocation = 1.5) => {
-    if (assets.length < 60 && totalAllocation + allocation <= 90) {
-      const newAsset = {
-        token: selected.value,
-        sector: selected.sector,
-        allocation: allocation,
-        phase: 'Innovators',
-        riskLevel: 'High',
-        compositeScore: 6.0,
-        adoptionProgress: 20,
-        justification: `Added ${selected.label} for diversification.`,
-      };
-      const updatedAssets = [...assets, newAsset];
-      setAssets(updatedAssets);
-      setTotalAllocation(totalAllocation + allocation);
-      localStorage.setItem('customPortfolio', JSON.stringify(updatedAssets));
-    } else {
-      alert('Max 60 assets or 90% allocation reached!');
-    }
-  };
-
-  const handleAllocationChange = (index, value) => {
-    const newAllocation = parseFloat(value);
-    if (isNaN(newAllocation) || newAllocation < 0) return;
-    const oldAllocation = assets[index].allocation;
-    const newTotal = totalAllocation - oldAllocation + newAllocation;
-    if (newTotal <= 90) {
-      const updatedAssets = [...assets];
-      updatedAssets[index].allocation = newAllocation;
-      setAssets(updatedAssets);
-      setTotalAllocation(newTotal);
-      localStorage.setItem('customPortfolio', JSON.stringify(updatedAssets));
-    } else {
-      alert('Total allocation cannot exceed 90%!');
-    }
+  const handleChange = selected => {
+    setSelectedTokens(selected);
   };
 
   return (
-    <div>
-      <h2 className="text-2xl font-semibold mb-4">Create Your Portfolio</h2>
+    <div className="p-4 max-w-full">
+      <h1 className="text-2xl font-bold mb-4">Create Custom Portfolio</h1>
       <Select
-        options={mockTokens}
-        onChange={(selected) => handleAddAsset(selected)}
-        className="mb-4"
-        placeholder="Select a token..."
+        isMulti
+        options={options}
+        value={selectedTokens}
+        onChange={handleChange}
+        className="my-4 max-w-[90vw]"
       />
-      <div className="bg-white p-4 shadow rounded">
-        <h3 className="text-xl font-semibold mb-2">Selected Assets</h3>
-        {assets.length === 0 ? (
-          <p>No assets added yet.</p>
-        ) : (
-          <table className="w-full">
+      {selectedTokens.length > 0 && (
+        <div className="overflow-x-auto">
+          <table className="table-auto w-full text-sm border-collapse">
             <thead>
-              <tr className="bg-gray-200">
-                <th className="p-2 text-left">Token</th>
-                <th className="p-2 text-left">Sector</th>
-                <th className="p-2 text-left">Allocation (%)</th>
+              <tr className="bg-gray-100">
+                <th className="p-2 border">Token</th>
+                <th className="p-2 border">Sector</th>
+                <th className="p-2 border">Allocation (%)</th>
+                <th className="p-2 border">Phase</th>
+                <th className="p-2 border">Risk Level</th>
+                <th className="p-2 border">Composite Score</th>
+                <th className="p-2 border min-w-[300px]">Justification</th>
+                <th className="p-2 border min-w-[200px]">Indicators</th>
+                <th className="p-2 border min-w-[200px]">Signals</th>
               </tr>
             </thead>
             <tbody>
-              {assets.map((asset, index) => (
-                <tr key={asset.token} className="border-t">
-                  <td className="p-2">{asset.token}</td>
-                  <td className="p-2">{asset.sector}</td>
-                  <td className="p-2">
-                    <input
-                      type="number"
-                      value={asset.allocation}
-                      onChange={(e) => handleAllocationChange(index, e.target.value)}
-                      className="w-20 p-1 border rounded"
-                      min="0"
-                      step="0.1"
-                    />
-                  </td>
-                </tr>
-              ))}
+              {selectedTokens.map(({ value }) => {
+                const item = portfolioData.find(data => data.token === value);
+                return (
+                  <tr key={value} className="hover:bg-gray-50">
+                    <td className="p-2 border">{item.token}</td>
+                    <td className="p-2 border">{item.sector}</td>
+                    <td className="p-2 border">{item.allocation}%</td>
+                    <td className="p-2 border">{item.phase}</td>
+                    <td className="p-2 border">{item.riskLevel}</td>
+                    <td className="p-2 border">{item.compositeScore.toFixed(2)}</td>
+                    <td className="p-2 border whitespace-normal">{item.justification}</td>
+                    <td className="p-2 border whitespace-normal">{item.indicators}</td>
+                    <td className="p-2 border whitespace-normal">{item.signals}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
-        )}
-        <p className="mt-4">Total Allocation: {totalAllocation.toFixed(2)}%</p>
-        <button
-          onClick={() => navigate('/')}
-          className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          View Portfolio
-        </button>
-      </div>
+        </div>
+      )}
     </div>
   );
-};
+}
 
 export default CustomPortfolioInput;
