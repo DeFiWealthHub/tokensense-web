@@ -32,7 +32,7 @@ function CustomPortfolioInput() {
   };
 
   return (
-    <div className="ml-8 md:ml-12 mr-4 md:mr-8 p-4 max-w-full">
+    <div className="ml-12 md:ml-16 mr-4 md:mr-8 p-4 max-w-full">
       <h1 className="text-2xl font-bold mb-4">Create Custom Portfolio</h1>
       <a
         href="/"

@@ -1,389 +1,113 @@
-const portfolioData = [
-  {
-    sector: "Blue-Chip/Core",
-    token: "BTC",
-    allocation: 6.0,
-    phase: "Early Majority",
-    riskLevel: "Moderate",
-    compositeScore: 8.59,
-    justification: "6% for treasury leadership, stability",
-    indicators: "Adoption (10, $66.6B volume), Treasury Adoption (10, 796,000 BTC), Quantum Resistance (8)",
-    signals: "ETF inflows ($14.4B), new treasuries"
-  },
-  {
-    sector: "Blue-Chip/Core",
-    token: "ETH",
-    allocation: 3.31,
-    phase: "Early Majority",
-    riskLevel: "Moderate",
-    compositeScore: 8.10,
-    justification: "3.31% for DeFi/NFT growth",
-    indicators: "Adoption (9, 120.72M addresses), Disruption (9), Quantum Resistance (7)",
-    signals: "L2 scaling, treasury integration"
-  },
-  {
-    sector: "DeFi & Staking",
-    token: "UNI",
-    allocation: 3.27,
-    phase: "Early Adopters",
-    riskLevel: "Moderate-High",
-    compositeScore: 8.00,
-    justification: "3.27% for DeFi growth",
-    indicators: "Adoption (9, DEX leader), Treasury Adoption (6), Market Sentiment (8)",
-    signals: "DEX volume, BTC pools"
-  },
-  {
-    sector: "DeFi & Staking",
-    token: "AAVE",
-    allocation: 3.18,
-    phase: "Early Adopters",
-    riskLevel: "Moderate-High",
-    compositeScore: 7.77,
-    justification: "3.18% for lending growth",
-    indicators: "Adoption (8), Disruption (9), Treasury Adoption (6)",
-    signals: "Institutional DeFi, BTC integration"
-  },
-  {
-    sector: "DeFi & Staking",
-    token: "LDO",
-    allocation: 3.01,
-    phase: "Early Adopters",
-    riskLevel: "Moderate-High",
-    compositeScore: 7.35,
-    justification: "3.01% for staking growth",
-    indicators: "Adoption (8), Disruption (8), Treasury Adoption (5)",
-    signals: "Ethereum staking, treasury pools"
-  },
-  {
-    sector: "ISO 20022/Banking",
-    token: "XRP",
-    allocation: 3.02,
-    phase: "Early Adopters",
-    riskLevel: "Moderate-High",
-    compositeScore: 7.37,
-    justification: "3.02% for banking, SEC risks",
-    indicators: "Adoption (9, 1.2M transactions), Treasury Adoption (8), Legal Activities (4)",
-    signals: "SEC lawsuit resolution, FedNow"
-  },
-  {
-    sector: "ISO 20022/Banking",
-    token: "XLM",
-    allocation: 2.88,
-    phase: "Early Adopters",
-    riskLevel: "Moderate-High",
-    compositeScore: 7.04,
-    justification: "2.88% for banking integration",
-    indicators: "Adoption (7), Treasury Adoption (8, ISO 20022), Government Actions (9)",
-    signals: "Bank partnerships, cross-border payments"
-  },
-  {
-    sector: "ISO 20022/Banking",
-    token: "QNT",
-    allocation: 2.67,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.54,
-    justification: "2.67% for interoperability, high risk",
-    indicators: "Adoption (6), Disruption (7), Treasury Adoption (6)",
-    signals: "Enterprise blockchain adoption"
-  },
-  {
-    sector: "AI & Infrastructure",
-    token: "FET",
-    allocation: 2.56,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.25,
-    justification: "2.56% for AI growth, high risk",
-    indicators: "Adoption (6), Disruption (8), Treasury Adoption (4)",
-    signals: "AI partnerships, compute demand"
-  },
-  {
-    sector: "AI & Infrastructure",
-    token: "RNDR",
-    allocation: 2.49,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.09,
-    justification: "2.49% for AI rendering, high risk",
-    indicators: "Adoption (5), Disruption (7), Treasury Adoption (4)",
-    signals: "GPU compute, media integration"
-  },
-  {
-    sector: "Gaming/Metaverse",
-    token: "IMX",
-    allocation: 2.56,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.25,
-    justification: "2.56% for NFT/gaming, high risk",
-    indicators: "Adoption (6), Disruption (7), Treasury Adoption (4)",
-    signals: "Gaming platform, NFT growth"
-  },
-  {
-    sector: "Gaming/Metaverse",
-    token: "GALA",
-    allocation: 2.38,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 5.81,
-    justification: "2.38% for gaming, highest risk",
-    indicators: "Adoption (5), Disruption (7), Treasury Adoption (4)",
-    signals: "Game releases, player base growth"
-  },
-  {
-    sector: "Layer 1/2 Scaling",
-    token: "SOL",
-    allocation: 4.7,
-    phase: "Early Adopters",
-    riskLevel: "Moderate-High",
-    compositeScore: 8.00,
-    justification: "4.7% for L1/dApp growth",
-    indicators: "Adoption (9, stablecoin transfers), Treasury Adoption (7), Technology (9)",
-    signals: "dApp ecosystem, institutional investment"
-  },
-  {
-    sector: "Layer 1/2 Scaling",
-    token: "ARB",
-    allocation: 2.56,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.25,
-    justification: "2.56% for L2 scaling, high risk",
-    indicators: "Adoption (6), Disruption (7), Treasury Adoption (4)",
-    signals: "L2 transaction volume, Ethereum integration"
-  },
-  {
-    sector: "Stablecoins/Liquidity",
-    token: "DAI",
-    allocation: 3.15,
-    phase: "Early Majority",
-    riskLevel: "Moderate",
-    compositeScore: 7.69,
-    justification: "3.15% for stablecoin stability",
-    indicators: "Adoption (8), Disruption (8), Treasury Adoption (6)",
-    signals: "Stablecoin regulation, DeFi integration"
-  },
-  {
-    sector: "Meme/Social-Fi",
-    token: "DEGEN",
-    allocation: 2.57,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.28,
-    justification: "2.57% for meme/social-fi, high volatility",
-    indicators: "Adoption (6, Farcaster), Market Sentiment (7, 70% surge), Treasury Adoption (3)",
-    signals: "Exchange listings, Degen Chain adoption"
-  },
-  {
-    sector: "Layer 1/2 Scaling",
-    token: "SUI",
-    allocation: 4.3,
-    phase: "Early Adopters",
-    riskLevel: "Moderate-High",
-    compositeScore: 7.37,
-    justification: "4.3% for L1 growth, moderate risk",
-    indicators: "Adoption (7, institutional), Disruption (8), Treasury Adoption (7)",
-    signals: "dApp growth, institutional adoption"
-  },
-  {
-    sector: "Layer 1/2 Scaling",
-    token: "INJ",
-    allocation: 2.67,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.54,
-    justification: "2.67% for DeFi L1, high risk",
-    indicators: "Adoption (6, DeFi dApps), Disruption (8), Treasury Adoption (5)",
-    signals: "DeFi protocol growth, treasury integration"
-  },
-  {
-    sector: "RWA Tokenization",
-    token: "ONDO",
-    allocation: 2.61,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.39,
-    justification: "2.61% for RWA tokenization, high risk",
-    indicators: "Adoption (6, RWA), Disruption (7), Treasury Adoption (6)",
-    signals: "RWA adoption, institutional partnerships"
-  },
-  {
-    sector: "AI & Infrastructure",
-    token: "TAO",
-    allocation: 2.67,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.54,
-    justification: "2.67% for AI blockchain, high risk",
-    indicators: "Adoption (6, AI compute), Disruption (8), Treasury Adoption (5)",
-    signals: "AI network growth, developer adoption"
-  },
-  {
-    sector: "Layer 1/2 Scaling",
-    token: "TON",
-    allocation: 4.1,
-    phase: "Early Adopters",
-    riskLevel: "Moderate-High",
-    compositeScore: 6.97,
-    justification: "4.1% for social-integrated L1, moderate risk",
-    indicators: "Adoption (7, Telegram), Disruption (7), Treasury Adoption (6)",
-    signals: "Telegram dApp growth, user adoption"
-  },
-  {
-    sector: "ISO 20022/Banking",
-    token: "HBAR",
-    allocation: 2.72,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.65,
-    justification: "2.72% for enterprise DLT, high risk",
-    indicators: "Adoption (6, enterprise), Treasury Adoption (8, ISO 20022), Technology (7)",
-    signals: "Enterprise partnerships, ISO 20022 adoption"
-  },
-  {
-    sector: "Layer 1/2 Scaling",
-    token: "KAS",
-    allocation: 2.57,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.28,
-    justification: "2.57% for high-throughput L1, high risk",
-    indicators: "Adoption (6), Disruption (7), Treasury Adoption (4)",
-    signals: "Transaction volume, exchange listings"
-  },
-  {
-    sector: "Meme/Social-Fi",
-    token: "DOGE",
-    allocation: 2.84,
-    phase: "Early Adopters",
-    riskLevel: "Moderate-High",
-    compositeScore: 6.94,
-    justification: "2.84% for meme/payment growth, moderate risk",
-    indicators: "Adoption (8, payments), Market Sentiment (8, Musk/Trump), Treasury Adoption (4)",
-    signals: "Payment adoption, Musk-driven hype"
-  },
-  {
-    sector: "Layer 1/2 Scaling",
-    token: "TIA",
-    allocation: 3.0,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.54,
-    justification: "3.0% for DeFi L1, high risk",
-    indicators: "Adoption (6, modular L1), Disruption (8), Treasury Adoption (5)",
-    signals: "Data availability solutions, DeFi growth"
-  },
-  {
-    sector: "Layer 1/2 Scaling",
-    token: "JUP",
-    allocation: 3.0,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.61,
-    justification: "3.0% for DeFi efficiency, high risk",
-    indicators: "Adoption (6, DEX aggregator), Disruption (8), Treasury Adoption (6)",
-    signals: "Solana ecosystem growth, DEX volume"
-  },
-  {
-    sector: "Meme/Social-Fi",
-    token: "WIF",
-    allocation: 2.5,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.47,
-    justification: "2.5% for meme coin, high volatility",
-    indicators: "Adoption (7, meme), Market Sentiment (8, X hype), Treasury Adoption (4)",
-    signals: "X sentiment, community growth"
-  },
-  {
-    sector: "Meme/Social-Fi",
-    token: "POPCAT",
-    allocation: 2.5,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.47,
-    justification: "2.5% for meme coin, high volatility",
-    indicators: "Adoption (7, meme), Market Sentiment (8, X hype), Treasury Adoption (4)",
-    signals: "Viral trends, community engagement"
-  },
-  {
-    sector: "Meme/Social-Fi",
-    token: "MOG",
-    allocation: 2.5,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.37,
-    justification: "2.5% for meme coin, high volatility",
-    indicators: "Adoption (6, meme), Market Sentiment (8, X hype), Treasury Adoption (4)",
-    signals: "Retail hype, exchange listings"
-  },
-  {
-    sector: "Meme/Social-Fi",
-    token: "BRETT",
-    allocation: 2.5,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.37,
-    justification: "2.5% for meme coin, high volatility",
-    indicators: "Adoption (6, meme), Market Sentiment (8, X hype), Treasury Adoption (4)",
-    signals: "Base chain growth, community hype"
-  },
-  {
-    sector: "Meme/Social-Fi",
-    token: "GIGA",
-    allocation: 2.5,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.37,
-    justification: "2.5% for meme coin, high volatility",
-    indicators: "Adoption (6, meme), Market Sentiment (8, X hype), Treasury Adoption (4)",
-    signals: "Internet culture trends, X sentiment"
-  },
-  {
-    sector: "Meme/Social-Fi",
-    token: "MUMU",
-    allocation: 2.5,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.37,
-    justification: "2.5% for meme coin, high volatility",
-    indicators: "Adoption (6, meme), Market Sentiment (8, X hype), Treasury Adoption (4)",
-    signals: "Bullish retail sentiment, community growth"
-  },
-  {
-    sector: "Meme/Social-Fi",
-    token: "PEPE",
-    allocation: 2.5,
-    phase: "Innovators",
-    riskLevel: "High",
-    compositeScore: 6.79,
-    justification: "2.5% for established meme coin, high volatility",
-    indicators: "Adoption (7, meme), Market Sentiment (8, X hype), Treasury Adoption (5)",
-    signals: "Liquidity growth, community engagement"
-  },
-  {
-    sector: "Bitcoin Treasury Equities",
-    token: "Equities",
-    allocation: 7.0,
-    phase: "Early Adopters",
-    riskLevel: "Moderate-High",
-    compositeScore: 7.89,
-    justification: "7% for leveraged BTC exposure, moderate risk",
-    indicators: "Treasury Adoption (10, Strategy, TAO Alpha), Market Sentiment (8), Government Actions (8)",
-    signals: "New treasury firms, ETF inflows"
-  },
-  {
-    sector: "Stablecoin Reserve",
-    token: "USDT/USDC",
-    allocation: 10.0,
-    phase: "N/A",
-    riskLevel: "Low",
-    compositeScore: 0,
-    justification: "10% for volatility mitigation",
-    indicators: "Stability (10), Liquidity (10)",
-    signals: "DeFi integration, regulatory compliance"
-  }
-];
+import { useState } from 'react';
+import Select from 'react-select';
+import portfolioData from '../data/portfolioData';
 
-export default portfolioData;
+function CustomPortfolioInput() {
+  const [selectedTokens, setSelectedTokens] = useState([]);
+  const [investmentAmount, setInvestmentAmount] = useState(1000); // Default to $1000
+  const [error, setError] = useState('');
+
+  const options = portfolioData.map(item => ({
+    value: item.token,
+    label: `${item.token} (${item.sector})`,
+  }));
+
+  const handleChange = selected => {
+    setSelectedTokens(selected);
+  };
+
+  const handleInvestmentChange = (e) => {
+    const value = e.target.value;
+    const numValue = Number(value);
+    if (numValue < 25) {
+      setError('Investment amount must be at least $25');
+      setInvestmentAmount('');
+    } else if (numValue > 10000000) {
+      setError('Investment amount cannot exceed $10M');
+      setInvestmentAmount('');
+    } else {
+      setError('');
+      setInvestmentAmount(numValue);
+    }
+  };
+
+  return (
+    <div className="ml-12 md:ml-16 mr-4 md:mr-8 p-4 max-w-full">
+      <h1 className="text-2xl font-bold mb-4">Create Custom Portfolio</h1>
+      <a
+        href="/"
+        className="mb-4 inline-block text-blue-600 hover:text-blue-800 underline"
+      >
+        Back to Default Portfolio
+      </a>
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-4">
+        <div className="flex items-center gap-2">
+          <label htmlFor="investmentAmount" className="text-sm font-medium">
+            Investment Amount ($):
+          </label>
+          <input
+            id="investmentAmount"
+            type="number"
+            value={investmentAmount}
+            onChange={handleInvestmentChange}
+            min="25"
+            max="10000000"
+            className="border rounded p-2 w-32 text-sm"
+            placeholder="Enter amount"
+          />
+        </div>
+        {error && <p className="text-red-600 text-sm">{error}</p>}
+      </div>
+      <Select
+        isMulti
+        options={options}
+        value={selectedTokens}
+        onChange={handleChange}
+        className="my-4 max-w-[90vw]"
+      />
+      {selectedTokens.length > 0 && (
+        <div className="overflow-x-auto">
+          <table className="table-auto w-full text-sm border-collapse">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="p-2 border">Token</th>
+                <th className="p-2 border">Sector</th>
+                <th className="p-2 border">Allocation (%)</th>
+                <th className="p-2 border">Investment ($)</th>
+                <th className="p-2 border">Phase</th>
+                <th className="p-2 border">Risk Level</th>
+                <th className="p-2 border">Composite Score</th>
+                <th className="p-2 border min-w-[300px]">Justification</th>
+                <th className="p-2 border min-w-[200px]">Indicators</th>
+                <th className="p-2 border min-w-[200px]">Signals</th>
+              </tr>
+            </thead>
+            <tbody>
+              {selectedTokens.map(({ value }) => {
+                const item = portfolioData.find(data => data.token === value);
+                return (
+                  <tr key={value} className="hover:bg-gray-50">
+                    <td className="p-2 border">{item.token}</td>
+                    <td className="p-2 border">{item.sector}</td>
+                    <td className="p-2 border">{item.allocation}%</td>
+                    <td className="p-2 border">
+                      {investmentAmount ? `$${((item.allocation * investmentAmount) / 100).toFixed(2)}` : 'N/A'}
+                    </td>
+                    <td className="p-2 border">{item.phase}</td>
+                    <td className="p-2 border">{item.riskLevel}</td>
+                    <td className="p-2 border">{item.compositeScore.toFixed(2)}</td>
+                    <td className="p-2 border whitespace-normal">{item.justification}</td>
+                    <td className="p-2 border whitespace-normal">{item.indicators}</td>
+                    <td className="p-2 border whitespace-normal">{item.signals}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default CustomPortfolioInput;

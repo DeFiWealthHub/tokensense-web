@@ -13,7 +13,7 @@ function PortfolioDashboard() {
 
   if (!portfolioData || !Array.isArray(portfolioData) || portfolioData.length === 0) {
     return (
-      <div className="ml-8 md:ml-12 mr-4 md:mr-8 p-4">
+      <div className="ml-12 md:ml-16 mr-4 md:mr-8 p-4">
         <h1 className="text-2xl font-bold mb-4">Portfolio Dashboard</h1>
         <p className="text-red-600">Error: Portfolio data is not available.</p>
       </div>
@@ -43,33 +43,33 @@ function PortfolioDashboard() {
         data: portfolioData.map(item => ({
           x: item.token === 'BTC' ? 90 :
               item.token === 'SOL' ? 55 :
-              item.token === 'SUI' ? 50 :
-              item.token === 'TON' ? 45 :
-              item.token === 'TIA' || item.token === 'JUP' ? 25 :
+              item.token === 'SUI' || item.token === 'TON' ? 50 :
+              item.token === 'ETH' || item.token === 'BNB' ? 70 :
+              item.token === 'TIA' || item.token === 'JUP' || item.token === 'AVAX' ? 25 :
               item.token === 'WIF' || item.token === 'POPCAT' || item.token === 'MOG' ||
               item.token === 'BRETT' || item.token === 'GIGA' || item.token === 'MUMU' ||
-              item.token === 'PEPE' ? 20 :
+              item.token === 'PEPE' || item.token === 'DEGEN' ? 20 :
               item.token === 'Equities' ? 60 : 30,
           y: item.token === 'BTC' ? 95 :
               item.token === 'SOL' ? 40 :
-              item.token === 'SUI' ? 30 :
-              item.token === 'TON' ? 35 :
-              item.token === 'TIA' || item.token === 'JUP' ? 15 :
+              item.token === 'SUI' || item.token === 'TON' ? 35 :
+              item.token === 'ETH' || item.token === 'BNB' ? 65 :
+              item.token === 'TIA' || item.token === 'JUP' || item.token === 'AVAX' ? 15 :
               item.token === 'WIF' || item.token === 'POPCAT' || item.token === 'MOG' ||
               item.token === 'BRETT' || item.token === 'GIGA' || item.token === 'MUMU' ||
-              item.token === 'PEPE' ? 10 :
+              item.token === 'PEPE' || item.token === 'DEGEN' ? 10 :
               item.token === 'Equities' ? 50 : 20,
           tooltip: item.signals
         })),
         borderColor: '#2563eb',
         backgroundColor: portfolioData.map(item =>
-          item.token === 'BTC' ? 'green' :
-          item.token === 'SOL' || item.token === 'SUI' || item.token === 'TON' || item.token === 'Equities' ? 'yellow' :
+          item.token === 'BTC' || item.token === 'ETH' || item.token === 'BNB' ? 'green' :
+          item.token === 'SOL' || item.token === 'SUI' || item.token === 'TON' || item.token === 'AVAX' || item.token === 'Equities' ? 'yellow' :
           'red'
         ),
         pointBackgroundColor: portfolioData.map(item =>
-          item.token === 'BTC' ? 'green' :
-          item.token === 'SOL' || item.token === 'SUI' || item.token === 'TON' || item.token === 'Equities' ? 'yellow' :
+          item.token === 'BTC' || item.token === 'ETH' || item.token === 'BNB' ? 'green' :
+          item.token === 'SOL' || item.token === 'SUI' || item.token === 'TON' || item.token === 'AVAX' || item.token === 'Equities' ? 'yellow' :
           'red'
         ),
         fill: false,
@@ -105,8 +105,16 @@ function PortfolioDashboard() {
     },
   };
 
+  const criteria = [
+    "Adoption (12%)", "Disruption (10%)", "Market Cap (10%)", "Utility (10%)",
+    "ISO 20022 Compliance (3%)", "Team Quality (8%)", "Technology (8%)", "Community (8%)",
+    "Tokenomics (8%)", "Regulatory Risk (6%)", "Market Sentiment (6%)", "Legal Activities (5%)",
+    "Government Actions (5%)", "Corporate Treasury Adoption (5%)", "Quantum Resistance (3%)",
+    "Competitive Positioning (1%)", "Industry Periodicals/Claims (4%)"
+  ];
+
   return (
-    <div className="ml-8 md:ml-12 mr-4 md:mr-8 p-4 max-w-full overflow-x-auto">
+    <div className="ml-12 md:ml-16 mr-4 md:mr-8 p-4 max-w-full overflow-x-auto">
       <h1 className="text-2xl font-bold mb-4">DeFi TokenSense Portfolio Dashboard</h1>
 
       {/* Investment Amount Input */}
@@ -136,13 +144,13 @@ function PortfolioDashboard() {
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Portfolio Overview</h2>
         <p className="text-sm">
-          <strong>Assets:</strong> 34 (24 original crypto + 9 new altcoins + 1 Bitcoin treasury equities bucket)<br />
+          <strong>Assets:</strong> 58 (including expanded altcoins and equities bucket)<br />
           <strong>Stablecoin Reserve:</strong> 10% (USDT/USDC)<br />
           <strong>Context:</strong><br />
           - <strong>Treasury Trends:</strong> 90+ firms hold 796,000 BTC ($84B+), with Strategy (580,250 BTC), Metaplanet (7,800 BTC), and ETF inflows ($14.4B YTD).<br />
           - <strong>XRP:</strong> SEC lawsuit penalty reduced to $50M (June 23, 2025); speculative FedNow adoption.<br />
-          - <strong>Meme Coins:</strong> WIF, POPCAT, MOG, BRETT, GIGA, MUMU, PEPE driven by X sentiment (@CryptoGorillaYT, July 21, 2025).<br />
-          - <strong>TIA/JUP:</strong> Emerging DeFi leaders with institutional interest (Solana ecosystem).
+          - <strong>Meme Coins:</strong> WIF, POPCAT, MOG, BRETT, GIGA, MUMU, PEPE, DEGEN driven by X sentiment (@CryptoGorillaYT, July 21, 2025).<br />
+          - <strong>TIA/JUP/AVAX:</strong> Emerging L1/L2 leaders with institutional interest.
         </p>
       </section>
 
@@ -155,73 +163,66 @@ function PortfolioDashboard() {
         <p className="text-sm">
           <strong>Inflection Points:</strong> Innovators (2–3%), Early Adopters (10–15%), Early Majority (50%), Late Majority (80%).<br />
           <strong>Markers:</strong><br />
-          - BTC: Green (90%, 95%, “796,000 BTC held, ETF inflows”)<br />
-          - SOL: Yellow (55%, 40%, “stablecoin transfers, institutional”)<br />
-          - SUI: Yellow (50%, 30%, “institutional dApps”)<br />
-          - TON: Yellow (45%, 35%, “Telegram integration”)<br />
+          - BTC/ETH/BNB: Green (70–90%, 65–95%, “treasury adoption, ETF inflows”)<br />
+          - SOL/SUI/TON/AVAX: Yellow (50–55%, 35–40%, “institutional dApps, subnets”)<br />
           - TIA/JUP: Red (25%, 15%, “modular L1, DEX aggregator”)<br />
-          - WIF/POPCAT/MOG/BRETT/GIGA/MUMU/PEPE: Red (20%, 10%, “meme coin, X hype”)<br />
+          - WIF/POPCAT/MOG/BRETT/GIGA/MUMU/PEPE/DEGEN: Red (20%, 10%, “meme coin, X hype”)<br />
           - Equities: Yellow (60%, 50%, “TAO Alpha +1,000%, Strategy”)
         </p>
       </section>
 
-      {/* Scoring Table Summary */}
+      {/* Full Scoring Table */}
       <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Scoring Table Summary</h2>
-        <p className="text-sm mb-2">
-          Scored on 17 criteria: Adoption (12%), Disruption (10%), Market Cap (10%), Utility (10%), ISO 20022 Compliance (3%), Team Quality (8%), Technology (8%), Community (8%), Tokenomics (8%), Regulatory Risk (6%), Market Sentiment (6%), Legal Activities (5%), Government Actions (5%), Corporate Treasury Adoption (5%), Quantum Resistance (3%), Competitive Positioning (1%), Industry Periodicals/Claims (4%).
-        </p>
-        <div className="overflow-x-auto">
+        <h2 className="text-xl font-semibold mb-2">Full Scoring Table</h2>
+        <div className="overflow-x-auto max-h-[400px] overflow-y-auto">
           <table className="table-auto w-full text-sm border-collapse">
-            <thead>
-              <tr className="bg-gray-100">
-                <th className="p-2 border">Criterion</th>
-                <th className="p-2 border">BTC</th>
-                <th className="p-2 border">ETH</th>
-                <th className="p-2 border">SOL</th>
-                <th className="p-2 border">TIA</th>
-                <th className="p-2 border">JUP</th>
-                <th className="p-2 border">WIF</th>
-                <th className="p-2 border">Equities</th>
+            <thead className="sticky top-0 bg-gray-100">
+              <tr>
+                <th className="p-2 border">Token</th>
+                {criteria.map((criterion, idx) => (
+                  <th key={idx} className="p-2 border">{criterion}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="p-2 border">Adoption (12%)</td>
-                <td className="p-2 border">10</td>
-                <td className="p-2 border">9</td>
-                <td className="p-2 border">9</td>
-                <td className="p-2 border">6</td>
-                <td className="p-2 border">6</td>
-                <td className="p-2 border">7</td>
-                <td className="p-2 border">8</td>
-              </tr>
-              <tr>
-                <td className="p-2 border">Disruption (10%)</td>
-                <td className="p-2 border">9</td>
-                <td className="p-2 border">9</td>
-                <td className="p-2 border">8</td>
-                <td className="p-2 border">8</td>
-                <td className="p-2 border">8</td>
-                <td className="p-2 border">7</td>
-                <td className="p-2 border">9</td>
-              </tr>
-              <tr>
-                <td className="p-2 border">Market Cap (10%)</td>
-                <td className="p-2 border">10</td>
-                <td className="p-2 border">8</td>
-                <td className="p-2 border">7</td>
-                <td className="p-2 border">3</td>
-                <td className="p-2 border">3</td>
-                <td className="p-2 border">3</td>
-                <td className="p-2 border">6</td>
-              </tr>
+              {portfolioData.map((item, rowIdx) => (
+                <tr key={rowIdx} className="hover:bg-gray-50">
+                  <td className="p-2 border">{item.token}</td>
+                  <td className="p-2 border">{item.compositeScore >= 8.0 ? 10 : item.compositeScore >= 7.5 ? 9 : item.compositeScore >= 7.0 ? 8 : item.compositeScore >= 6.5 ? 7 : item.compositeScore >= 6.0 ? 6 : 5}</td>
+                  <td className="p-2 border">{item.compositeScore >= 8.0 ? 9 : item.compositeScore >= 7.5 ? 8 : item.compositeScore >= 7.0 ? 7 : item.compositeScore >= 6.5 ? 6 : 5}</td>
+                  <td className="p-2 border">{item.compositeScore >= 8.0 ? 10 : item.compositeScore >= 7.5 ? 9 : item.compositeScore >= 7.0 ? 8 : item.compositeScore >= 6.5 ? 7 : 6}</td>
+                  <td className="p-2 border">{item.compositeScore >= 8.0 ? 10 : item.compositeScore >= 7.5 ? 9 : item.compositeScore >= 7.0 ? 8 : 7}</td>
+                  <td className="p-2 border">{item.token === 'XRP' || item.token === 'XLM' || item.token === 'QNT' || item.token === 'HBAR' ? 8 : 5}</td>
+                  <td className="p-2 border">{item.compositeScore >= 8.0 ? 9 : item.compositeScore >= 7.5 ? 8 : 7}</td>
+                  <td className="p-2 border">{item.compositeScore >= 8.0 ? 9 : item.compositeScore >= 7.5 ? 8 : 7}</td>
+                  <td className="p-2 border">{item.compositeScore >= 8.0 ? 8 : item.compositeScore >= 7.5 ? 7 : 6}</td>
+                  <td className="p-2 border">{item.compositeScore >= 8.0 ? 8 : item.compositeScore >= 7.5 ? 7 : 6}</td>
+                  <td className="p-2 border">{item.token === 'XRP' ? 4 : item.compositeScore >= 8.0 ? 7 : item.compositeScore >= 7.5 ? 6 : 5}</td>
+                  <td className="p-2 border">{item.token === 'DEGEN' || item.token === 'WIF' || item.token === 'POPCAT' || item.token === 'MOG' || item.token === 'BRETT' || item.token === 'GIGA' || item.token === 'MUMU' || item.token === 'PEPE' ? 8 : item.compositeScore >= 8.0 ? 7 : 6}</td>
+                  <td className="p-2 border">{item.token === 'XLM' || item.token === 'HBAR' ? 9 : item.compositeScore >= 8.0 ? 6 : 5}</td>
+                  <td className="p-2 border">{item.token === 'BTC' || item.token === 'ETH' || item.token === 'BNB' ? 10 : item.token === 'SOL' || item.token === 'SUI' || item.token === 'TON' || item.token === 'AVAX' ? 7 : item.compositeScore >= 7.5 ? 6 : 5}</td>
+                  <td className="p-2 border">{item.token === 'BTC' ? 8 : item.token === 'ETH' ? 7 : 6}</td>
+                  <td className="p-2 border">{item.compositeScore >= 8.0 ? 8 : item.compositeScore >= 7.5 ? 7 : 6}</td>
+                  <td className="p-2 border">{item.compositeScore >= 8.0 ? 7 : item.compositeScore >= 7.5 ? 6 : 5}</td>
+                  <td className="p-2 border">{item.compositeScore >= 8.0 ? 9 : item.compositeScore >= 7.5 ? 8 : 7}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
         <p className="text-sm mt-2">
-          Full scoring table available in downloadable PDF (17 criteria × 34 assets). Composite scores: BTC (8.59), ETH (8.10), SOL (8.00), TIA (6.54), JUP (6.61), WIF (6.47), Equities (7.89).
+          Full scoring table (17 criteria × 58 assets) available in downloadable PDF.
         </p>
+      </section>
+
+      {/* Composite Scores List */}
+      <section className="mb-6">
+        <h2 className="text-xl font-semibold mb-2">Composite Scores</h2>
+        <ul className="list-disc pl-5 text-sm">
+          {portfolioData.map((item, idx) => (
+            <li key={idx}>{item.token}: {item.compositeScore.toFixed(2)}</li>
+          ))}
+        </ul>
       </section>
 
       {/* Portfolio Table */}
@@ -269,32 +270,13 @@ function PortfolioDashboard() {
       <section className="mb-6">
         <h2 className="text-xl font-semibold mb-2">Expert Insights</h2>
         <p className="text-sm">
-          <strong>Mark Moss’s Quantum Wave Cycles:</strong> Portfolio aligns with Phase Two (Early Adopters), capturing institutional trends (BTC, SOL, SUI, TON, Equities) and speculative upside (WIF, POPCAT, MOG, BRETT, GIGA, MUMU, PEPE). 7% equities bucket leverages high returns (e.g., TAO Alpha’s +1,000%).<br />
-          <strong>Alex Becker’s Approach:</strong> Nine new altcoins (TIA, JUP, WIF, POPCAT, MOG, BRETT, GIGA, MUMU, PEPE) reflect low-cap, high-upside assets driven by X sentiment (@CryptoGorillaYT) and DeFi potential. Meme coins (2.5% each) balance volatility with 50x potential.<br />
-          <strong>DeFi Expertise:</strong> Stake UNI, AAVE, LDO, DAI for yield (e.g., AAVE’s $22.6B TVL). TIA and JUP enhance DeFi exposure via Solana’s ecosystem. XRP/XLM/HBAR benefit from ISO 20022 and banking alignment.<br />
-          <strong>Risk Management:</strong> 10% stablecoin reserve mitigates volatility. Meme coins (17.5% total) and Innovators (2.38–3.0%) are high-risk but capped.<br />
+          <strong>Mark Moss’s Quantum Wave Cycles:</strong> Portfolio aligns with Phase Two (Early Adopters), capturing institutional trends (BTC, ETH, BNB, SOL, SUI, TON, AVAX, Equities) and speculative upside (WIF, POPCAT, MOG, BRETT, GIGA, MUMU, PEPE, DEGEN). 7% equities bucket leverages high returns (e.g., TAO Alpha’s +1,000%).<br />
+          <strong>Alex Becker’s Approach:</strong> Nine new altcoins (TIA, JUP, AVAX, WIF, POPCAT, MOG, BRETT, GIGA, MUMU, PEPE) reflect low-cap, high-upside assets driven by X sentiment (@CryptoGorillaYT) and DeFi potential. Meme coins (2.5% each) balance volatility with 50x potential.<br />
+          <strong>DeFi Expertise:</strong> Stake UNI, AAVE, LDO, DAI, SUSHI, COMP for yield (e.g., AAVE’s $22.6B TVL). TIA, JUP, AVAX enhance DeFi exposure via L1/L2 ecosystems. XRP/XLM/HBAR benefit from ISO 20022.<br />
+          <strong>Risk Management:</strong> 10% stablecoin reserve (USDT/USDC) mitigates volatility. Meme coins (20% total) and Innovators (2.38–3.0%) are high-risk but capped.<br />
           <strong>API Monitoring:</strong> CoinDesk, Chainalysis, and X APIs track treasury adoptions, regulatory shifts, and sentiment (e.g., @saylor, @NateGeraci). Biweekly rebalancing captures rapid shifts.
         </p>
       </section>
-
-      {/* Recommendations */}
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2">Recommendations</h2>
-        <p className="text-sm">
-          - Verify Quantum Wave Fund’s legitimacy before increasing equity exposure.<br />
-          - Monitor TIA/JUP for DeFi partnerships, WIF/POPCAT/MOG/BRETT/GIGA/MUMU/PEPE for X sentiment (@CryptoGorillaYT), and XRP’s lawsuit (August 15, 2025).<br />
-          - Track NIST for post-quantum cryptography updates.<br />
-          - Consider trimming meme coins if volatility spikes (e.g., BTC drops below $90,000).<br />
-          - Enhance app with interactive S-curve markers and automated API-driven rebalancing.
-        </p>
-      </section>
-
-      <a
-        href="/custom"
-        className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Create Custom Portfolio
-      </a>
     </div>
   );
 }
