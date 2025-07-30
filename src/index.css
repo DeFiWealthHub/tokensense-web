@@ -4,9 +4,9 @@
 
 /* Reset default margins and ensure full viewport */
 html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
+  margin: .5ch;
+  padding: .5ch;
+  width: 97%;
   height: 100%;
   overflow-x: hidden;
 }
