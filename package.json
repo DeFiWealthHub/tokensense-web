@@ -11,13 +11,15 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "axios": "^1.11.0",
     "chart.js": "^4.4.3",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.1",
     "react-select": "^5.8.0",
-    "react-transition-group": "^4.4.5"
+    "react-transition-group": "^4.4.5",
+    "web3": "^4.16.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.11",
@@ -27,6 +29,6 @@
     "vite": "^7.0.6"
   },
   "engines": {
-    "node": "20.19.0"
+    "node": "^20.0.0 || ^22.0.0"
   }
 }
